@@ -13,26 +13,29 @@ export class RegisterPage implements OnInit {
   form: FormGroup;
   errorMessage = '';
   successMessage = '';
- 
+
   validationMessages = {
-   'email': [
-     { type: 'required', message: 'Email is required.' },
-     { type: 'pattern', message: 'Enter a valid email.' }
-   ],
-   'password': [
-     { type: 'required', message: 'Password is required.' },
-     { type: 'minlength', message: 'Password must be at least 5 characters long.' }
-   ]
- };
+    'email': [
+      { type: 'required', message: 'Email is required.' },
+      { type: 'pattern', message: 'Enter a valid email.' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required.' },
+      { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+    ]
+  };
 
   constructor(
     private navCtrl: NavController,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
+      fullName: new FormControl(''),
+      phone: new FormControl(''),
+      address: new FormControl(''),
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -46,15 +49,23 @@ export class RegisterPage implements OnInit {
 
   tryRegister(value) {
     this.authService.register(value)
-     .then(res => {
-       console.log(res);
-       this.errorMessage = '';
-       this.successMessage = 'Your account has been created. Please log in.';
-     }, err => {
-       console.log(err);
-       this.errorMessage = err.message;
-       this.successMessage = '';
-     });
+      .then(res => {
+        console.log(res);
+        if (res) {
+          delete value['password'];
+          this.authService.updateProfile(value).then(() => {
+            this.errorMessage = '';
+            this.successMessage = 'Your account has been created. Please log in.';
+          }, err => {
+            this.errorMessage = err.message;
+            this.successMessage = '';
+          });
+        }
+      }, err => {
+        console.log(err);
+        this.errorMessage = err.message;
+        this.successMessage = '';
+      });
   }
 
   goLoginPage() {

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { RegisterPage } from './register.page';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    AngularFirestoreModule,
     RouterModule.forChild(routes)
   ],
   declarations: [RegisterPage]

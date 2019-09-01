@@ -6,7 +6,11 @@
 
 <ion-content padding>
   <form class="form" [formGroup]="form"  (ngSubmit)="tryRegister(form.value)">
- 
+    <ion-item>
+      <ion-label  position="floating" color="primary">ชื่อ</ion-label>
+      <ion-input type="text" formControlName="fullName"></ion-input>
+    </ion-item>
+
     <ion-item>
       <ion-label  position="floating" color="primary">Email</ion-label>
       <ion-input type="text" formControlName="email"></ion-input>
@@ -30,7 +34,16 @@
         </div>
       </ng-container>
     </div>
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">เบอร์โทร</ion-label>
+      <ion-input type="text" formControlName="phone"></ion-input>
+    </ion-item>
  
+    <ion-item>
+      <ion-label  position="floating" color="primary">ที่อยู่</ion-label>
+      <ion-textarea type="text" formControlName="address"></ion-textarea>
+    </ion-item>
     
     <ion-button  class="submit-btn" type="submit"  [disabled]="!form.valid">Register</ion-button>
     <label class="error-message">{{errorMessage}}</label>

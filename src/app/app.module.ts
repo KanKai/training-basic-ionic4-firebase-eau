@@ -15,8 +15,10 @@ import * as firebase from 'firebase';
 import { environment } from 'src/environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+
 // Initial Firebase with ionicApp
-firebase.initializeApp(environment.firebaseConfig);
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -25,13 +27,16 @@ firebase.initializeApp(environment.firebaseConfig);
     IonicModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
