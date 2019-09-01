@@ -13,6 +13,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import * as firebase from 'firebase';
 import { environment } from 'src/environments/environment';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Initial Firebase with ionicApp
 firebase.initializeApp(environment.firebaseConfig);
@@ -23,6 +24,7 @@ firebase.initializeApp(environment.firebaseConfig);
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    ReactiveFormsModule,
     AngularFireAuthModule
   ],
   providers: [
