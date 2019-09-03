@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ export class RegisterPage implements OnInit {
   form: FormGroup;
   errorMessage = '';
   successMessage = '';
+  loading: any;
 
   validationMessages = {
     'email': [
@@ -28,7 +30,10 @@ export class RegisterPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private authService: AuthenticationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -47,25 +52,24 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  tryRegister(value) {
-    this.authService.register(value)
-      .then(res => {
-        console.log(res);
-        if (res) {
-          delete value['password'];
-          this.authService.updateProfile(value).then(() => {
-            this.errorMessage = '';
-            this.successMessage = 'Your account has been created. Please log in.';
-          }, err => {
-            this.errorMessage = err.message;
-            this.successMessage = '';
+  async tryRegister(signupForm: FormGroup): Promise<void> {
+    this.authService.register(signupForm.value)
+    .then(
+      () => {
+        this.loadingCtrl.dismiss().then(() => {
+          this.router.navigateByUrl('home');
+        });
+      },
+      error => {
+        this.loadingCtrl.dismiss().then(async () => {
+          const alert = await this.alertCtrl.create({
+            message: error.message,
+            buttons: [{ text: 'Ok', role: 'cancel' }],
           });
-        }
-      }, err => {
-        console.log(err);
-        this.errorMessage = err.message;
-        this.successMessage = '';
-      });
+          await alert.present();
+        });
+      }
+    );
   }
 
   goLoginPage() {

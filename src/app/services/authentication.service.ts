@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase/app';
 import { RegisterInterface } from '../_models/register.interface';
 import { AuthInterface } from '../_models/auth.interface';
+import * as firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+
   private userCollection: AngularFirestoreCollection<any>;
   constructor(
     private afs: AngularFirestore
@@ -15,7 +16,7 @@ export class AuthenticationService {
     this.userCollection = this.afs.collection<any>('userProfile');
   }
 
-  register(value: RegisterInterface) {
+  register(value: RegisterInterface): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
         .then(
@@ -29,7 +30,7 @@ export class AuthenticationService {
     return this.userCollection.add(data);
   }
 
-  loginUser(value: AuthInterface) {
+  loginUser(value: AuthInterface): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(value.email, value.password)
         .then(
@@ -39,7 +40,7 @@ export class AuthenticationService {
     });
   }
 
-  logoutUser() {
+  logoutUser(): Promise<any> {
     return new Promise((resolve, reject) => {
       const getCurrentUser = firebase.auth().currentUser;
       if (getCurrentUser) {

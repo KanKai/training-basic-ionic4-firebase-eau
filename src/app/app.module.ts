@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 // Initial Firebase with ionicApp
 @NgModule({
@@ -35,7 +36,8 @@ import { AngularFireModule } from '@angular/fire';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: FirestoreSettingsToken, useValue: {} }
+    { provide: FirestoreSettingsToken, useValue: {} },
+    AngularFireAuthGuard
   ],
   bootstrap: [AppComponent]
 })

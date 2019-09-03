@@ -1,6 +1,8 @@
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,15 +15,13 @@ export class DashboardPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-
     if (this.authService.userDetails()) {
       this.userEmail = this.authService.userDetails().email;
-    } else {
-      this.navCtrl.navigateBack('');
     }
   }
 
@@ -29,7 +29,7 @@ export class DashboardPage implements OnInit {
     this.authService.logoutUser()
     .then(res => {
       console.log(res);
-      this.navCtrl.navigateBack('');
+      this.router.navigateByUrl('login');
     })
     .catch(error => {
       console.log(error);
