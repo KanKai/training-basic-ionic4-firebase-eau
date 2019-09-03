@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-import * as firebase from 'firebase';
 import { environment } from 'src/environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
 

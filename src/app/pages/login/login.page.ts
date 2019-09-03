@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, LoadingController } from '@ionic/angular';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../core/services/authentication.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthInterface } from '../_models/auth.interface';
-import { Router } from '@angular/router';
+import { AuthInterface } from '../../core/models/auth.interface';
 
 @Component({
   selector: 'app-login',
@@ -31,8 +30,7 @@ export class LoginPage implements OnInit {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     public alertController: AlertController,
-    public loadingCtrl: LoadingController,
-    private router: Router
+    public loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -49,44 +47,43 @@ export class LoginPage implements OnInit {
   }
 
   async loginUser(loginForm: FormGroup): Promise<void> {
-    if (!loginForm.valid) {
-      this.presentAlert();
-    } else {
-      this.loading = await this.loadingCtrl.create();
-      await this.loading.present();
+    try {
+      if (!loginForm.valid) {
+        this.presentAlert();
+      } else {
 
-      const request = (loginForm.value as AuthInterface);
+        this.loading = await this.loadingCtrl.create();
+        await this.loading.present();
 
-      this.authService.loginUser(request)
-        .then(
-          () => {
-            this.loading.dismiss().then(() => {
-              this.router.navigateByUrl('dashboard');
-            });
-          },
-          (error) => {
-            this.loading.dismiss().then(async () => {
-              const alert = await this.alertController.create({
-                message: error.message,
-                buttons: [{ text: 'Ok', role: 'cancel' }],
-              });
-              await alert.present();
-            });
-          }
-        );
+        const request = (loginForm.value as AuthInterface);
+
+        const user = await this.authService.loginUser(request);
+
+        if (!user.user) {
+          return;
+        }
+
+        this.loading.dismiss().then(() => {
+          this.navCtrl.navigateForward('/dashboard');
+        });
+      }
+    } catch (error) {
+      this.loading.dismiss().then(async () => {
+        const alert = await this.alertController.create({
+          message: error.message,
+          buttons: [{ text: 'Ok', role: 'cancel' }],
+        });
+        await alert.present();
+      });
     }
-    // this.authService.loginUser(value)
-    // .then(res => {
-    //   console.log(res);
-    //   this.errorMessage = '';
-    //   this.navCtrl.navigateForward('/dashboard');
-    // }, err => {
-    //   this.errorMessage = err.message;
-    // });
   }
 
   goToRegisterPage() {
     this.navCtrl.navigateForward('/register');
+  }
+
+  gotoResetPassword() {
+    this.navCtrl.navigateForward('/reset-password');
   }
 
   private async presentAlert() {

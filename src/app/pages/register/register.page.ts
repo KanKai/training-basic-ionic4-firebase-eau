@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
-import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +23,7 @@ export class RegisterPage implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'Password is required.' },
-      { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+      { type: 'minlength', message: 'Password must be at least 6 characters long.' }
     ]
   };
 
@@ -32,8 +32,7 @@ export class RegisterPage implements OnInit {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
-    private router: Router
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -52,24 +51,24 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  async tryRegister(signupForm: FormGroup): Promise<void> {
-    this.authService.register(signupForm.value)
-    .then(
-      () => {
-        this.loadingCtrl.dismiss().then(() => {
-          this.router.navigateByUrl('home');
+  async tryRegister(signUpForm: FormGroup): Promise<void> {
+    try {
+      this.loading = await this.loadingCtrl.create();
+      await this.loading.present();
+
+      await this.authService.register(signUpForm.value);
+
+      await this.loadingCtrl.dismiss();
+      this.navCtrl.navigateBack('/login');
+    } catch (error) {
+      this.loadingCtrl.dismiss().then(async () => {
+        const alert = await this.alertCtrl.create({
+          message: error.message,
+          buttons: [{ text: 'Ok', role: 'cancel' }],
         });
-      },
-      error => {
-        this.loadingCtrl.dismiss().then(async () => {
-          const alert = await this.alertCtrl.create({
-            message: error.message,
-            buttons: [{ text: 'Ok', role: 'cancel' }],
-          });
-          await alert.present();
-        });
-      }
-    );
+        await alert.present();
+      });
+    }
   }
 
   goLoginPage() {

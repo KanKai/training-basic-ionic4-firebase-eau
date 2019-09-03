@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Hello {{userInfo?.email}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,12 +13,14 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col text-center>
-        Your Registered EmailID : {{userEmail}}
+      <ion-col>
+        Your Registered Email : {{userInfo?.email}}
+        Your Registered FullName : {{userInfo?.fullName}}
+        Your Registered Phone : {{userInfo?.phone}}
+        Your Registered Address : {{userInfo?.address}}
       </ion-col>
     </ion-row>
   </ion-grid>  
-  
   
 </ion-content>
 <ion-footer (click)="logout()">

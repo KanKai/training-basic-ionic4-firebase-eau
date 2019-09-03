@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>เข้าสู่ระบบ</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -35,7 +35,9 @@
  
     <label class="error-message">{{errorMessage}}</label>
   </form>
-  <p class="go-to-register" text-center>
-    <a (click)="goToRegisterPage()">ลงทะเบียน</a>
+  <ion-button color="light" expand="block" (click)="goToRegisterPage()">ลงทะเบียน</ion-button>
+  <p class="go-to-register reset-password-txt" text-left>
+    หากจำข้อมูลไม่ได้?
+    <a (click)="gotoResetPassword()">ลืมรหัสผ่าน</a>
   </p>
 </ion-content>

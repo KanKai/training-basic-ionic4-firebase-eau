@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
-import { redirectUnauthorizedTo, canActivate } from '@angular/fire/auth-guard';
-
-const redirectUnauthorizedToLanding = redirectUnauthorizedTo(['login']);
+import { AuthenticationGuard } from './core/guard/authentication.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'login',
-    loadChildren: './login/login.module#LoginPageModule'
+    loadChildren: './pages/login/login.module#LoginPageModule'
   },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
+  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
+  { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
   {
     path: 'dashboard',
-    loadChildren: './components/dashboard/dashboard.module#DashboardPageModule',
-    ...canActivate(redirectUnauthorizedToLanding)
-  },
+    loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
+    canActivate: [AuthenticationGuard]
+  }
 ];
 
 @NgModule({
