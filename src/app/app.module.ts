@@ -17,10 +17,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { SearchPipe } from './_shared/pipes/search.pipe';
+import { SortPipe } from './_shared/pipes/sort.pipe';
 
 // Initial Firebase with ionicApp
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SearchPipe, SortPipe],
   entryComponents: [],
   imports: [
     BrowserModule,
