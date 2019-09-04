@@ -3,6 +3,7 @@ import { NavController, AlertController, LoadingController } from '@ionic/angula
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthInterface } from '../../core/models/auth.interface';
+import { ROUTE } from 'src/app/_constants/route.constant';
 
 @Component({
   selector: 'app-login',
@@ -64,7 +65,7 @@ export class LoginPage implements OnInit {
         }
 
         this.loading.dismiss().then(() => {
-          this.navCtrl.navigateForward('/dashboard');
+          this.navCtrl.navigateForward(ROUTE.MEMBER);
         });
       }
     } catch (error) {
@@ -79,11 +80,11 @@ export class LoginPage implements OnInit {
   }
 
   goToRegisterPage() {
-    this.navCtrl.navigateForward('/register');
+    this.navCtrl.navigateForward(ROUTE.REGISTER);
   }
 
   gotoResetPassword() {
-    this.navCtrl.navigateForward('/reset-password');
+    this.navCtrl.navigateForward(ROUTE.RESET_PASSWORD);
   }
 
   private async presentAlert() {

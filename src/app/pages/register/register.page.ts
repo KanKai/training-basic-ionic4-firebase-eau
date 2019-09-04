@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
@@ -59,7 +58,7 @@ export class RegisterPage implements OnInit {
       await this.authService.register(signUpForm.value);
 
       await this.loadingCtrl.dismiss();
-      this.navCtrl.navigateBack('/login');
+      this.navCtrl.navigateBack('');
     } catch (error) {
       this.loadingCtrl.dismiss().then(async () => {
         const alert = await this.alertCtrl.create({
