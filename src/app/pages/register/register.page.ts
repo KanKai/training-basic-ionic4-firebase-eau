@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { ROUTE } from 'src/app/_constants/route.constant';
 
 @Component({
   selector: 'app-register',
@@ -58,7 +59,7 @@ export class RegisterPage implements OnInit {
       await this.authService.register(signUpForm.value);
 
       await this.loadingCtrl.dismiss();
-      this.navCtrl.navigateBack('');
+      this.navCtrl.navigateBack(ROUTE.LOGIN);
     } catch (error) {
       this.loadingCtrl.dismiss().then(async () => {
         const alert = await this.alertCtrl.create({
@@ -71,7 +72,7 @@ export class RegisterPage implements OnInit {
   }
 
   goLoginPage() {
-    this.navCtrl.navigateBack('');
+    this.navCtrl.navigateBack(ROUTE.LOGIN);
   }
 
 }

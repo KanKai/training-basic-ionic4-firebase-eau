@@ -4,6 +4,7 @@ import { NavController, AlertController, LoadingController } from '@ionic/angula
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { ValidatePattern } from 'src/app/_constants/app.constant';
 import { AuthInterface } from 'src/app/core/models/auth.interface';
+import { ROUTE } from 'src/app/_constants/route.constant';
 
 @Component({
   selector: 'app-reset-password',
@@ -70,7 +71,7 @@ export class ResetPasswordPage implements OnInit {
   }
 
   gotoLoginPage() {
-    this.navCtrl.navigateBack('');
+    this.navCtrl.navigateBack(ROUTE.LOGIN);
   }
 
   private async presentAlert() {
@@ -91,7 +92,7 @@ export class ResetPasswordPage implements OnInit {
         {
           text: 'ตกลง',
           handler: () => {
-            this.navCtrl.navigateBack('');
+            this.navCtrl.navigateBack(ROUTE.LOGIN);
           }
         }
       ]
