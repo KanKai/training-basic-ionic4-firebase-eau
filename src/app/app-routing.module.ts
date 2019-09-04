@@ -15,9 +15,6 @@ const routes: Routes = [
   },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
-  { path: 'tab-home', loadChildren: './pages/tab-home/tab-home.module#TabHomePageModule' },
-  { path: 'tab-settings', loadChildren: './pages/tab-settings/tab-settings.module#TabSettingsPageModule' },
-  { path: 'home-detail', loadChildren: './pages/home-detail/home-detail.module#HomeDetailPageModule' },
 ];
 
 @NgModule({

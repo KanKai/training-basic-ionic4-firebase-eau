@@ -22,20 +22,20 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './pages/tab-home/tab-home.module#TabHomePageModule'
+            loadChildren: '../tab-home/tab-home.module#TabHomePageModule'
           }
         ]
       },
       {
         path: 'tabHome/homeDetail',
-        loadChildren: './pages/home-detail/home-detail.module#HomeDetailPageModule'
+        loadChildren: '../home-detail/home-detail.module#HomeDetailPageModule'
       },
       {
         path: 'tabSettings',
         children: [
           {
             path: '',
-            loadChildren: './pages/tab-settings/tab-settings.module#TabSettingsPageModule'
+            loadChildren: '../tab-settings/tab-settings.module#TabSettingsPageModule'
           }
         ]
       }
