@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { ROUTE } from 'src/app/_constants/route.constant';
 
 @Component({
   selector: 'app-tab-settings',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabSettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
+  }
+
+  gotoAbout() {
+    this.navCtrl.navigateForward(ROUTE.ABOUT);
   }
 
 }

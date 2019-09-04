@@ -10,6 +10,11 @@ const routes: Routes = [
     loadChildren: './pages/tabs/tabs.module#TabsPageModule',
   },
   {
+    path: 'about',
+    canActivate: [AuthenticationGuard],
+    loadChildren: './pages/about/about.module#AboutPageModule'
+  },
+  {
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule'
   },
