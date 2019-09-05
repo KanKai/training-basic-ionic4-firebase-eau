@@ -8,12 +8,25 @@ import { NavController } from '@ionic/angular';
 })
 export class AboutPage implements OnInit {
   items: any = [];
+  terms: string;
 
   constructor(
     private navCtrl: NavController
   ) { }
 
   ngOnInit() {
+    this.getItems();
+  }
+
+  gotoBack() {
+    this.navCtrl.navigateBack('');
+  }
+
+  onSearch($event) {
+    console.log('event -> ', $event.target.value);
+  }
+
+  getItems() {
     this.items = [
       { title: 'Amsterdam' },
       { title: 'Bogota' },
@@ -24,14 +37,6 @@ export class AboutPage implements OnInit {
       { title: 'Hanoi' },
       { title: 'Islamabad' }
     ];
-  }
-
-  gotoBack() {
-    this.navCtrl.navigateBack('');
-  }
-
-  onSearch($event) {
-    console.log('event -> ', $event.target.value);
   }
 
 }

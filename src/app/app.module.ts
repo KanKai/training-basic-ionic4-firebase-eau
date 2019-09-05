@@ -22,7 +22,7 @@ import { SortPipe } from './_shared/pipes/sort.pipe';
 
 // Initial Firebase with ionicApp
 @NgModule({
-  declarations: [AppComponent, SearchPipe, SortPipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
