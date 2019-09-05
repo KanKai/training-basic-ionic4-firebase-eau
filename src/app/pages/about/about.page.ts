@@ -9,6 +9,8 @@ import { NavController } from '@ionic/angular';
 export class AboutPage implements OnInit {
   items: any = [];
   terms: string;
+  descending = false;
+  order: number;
 
   constructor(
     private navCtrl: NavController
@@ -22,10 +24,6 @@ export class AboutPage implements OnInit {
     this.navCtrl.navigateBack('');
   }
 
-  onSearch($event) {
-    console.log('event -> ', $event.target.value);
-  }
-
   getItems() {
     this.items = [
       { title: 'Amsterdam' },
@@ -37,6 +35,11 @@ export class AboutPage implements OnInit {
       { title: 'Hanoi' },
       { title: 'Islamabad' }
     ];
+  }
+
+  sort() {
+    this.descending = !this.descending;
+    this.order = this.descending ? 1 : -1;
   }
 
 }

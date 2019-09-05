@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { AboutPage } from './about.page';
 import { SearchPipe } from 'src/app/_shared/pipes/search.pipe';
+import { SortPipe } from 'src/app/_shared/pipes/sort.pipe';
 
 const routes: Routes = [
   {
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AboutPage, SearchPipe]
+  declarations: [AboutPage, SearchPipe, SortPipe]
 })
 export class AboutPageModule {}
