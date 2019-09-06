@@ -63,7 +63,8 @@ export class AuthenticationService {
       email: user.email,
       fullName: user.fullName,
       address: user.address,
-      phone: user.phone
+      phone: user.phone,
+      imageProfile: user.imageProfile
     };
 
     userRef.set(data, { merge: true });

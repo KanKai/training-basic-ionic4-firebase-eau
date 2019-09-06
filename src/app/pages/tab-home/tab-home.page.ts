@@ -16,7 +16,6 @@ export class TabHomePage implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router,
     private navCtrl: NavController
   ) { }
 
@@ -28,13 +27,6 @@ export class TabHomePage implements OnInit {
     try {
       const userInfo = await this.authService.getUser();
       this.userInfo = userInfo;
-    } catch (error) {}
-  }
-
-  async logout() {
-    try {
-      await this.authService.logoutUser();
-      this.router.navigateByUrl('login');
     } catch (error) {}
   }
 
