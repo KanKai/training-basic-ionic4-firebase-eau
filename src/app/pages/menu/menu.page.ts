@@ -14,6 +14,10 @@ export class MenuPage implements OnInit {
     {
       title: 'หน้าหลัก',
       url: '/members'
+    },
+    {
+      title: 'ข้อมูลส่วนตัว',
+      url: '/members/profile'
     }
   ];
 

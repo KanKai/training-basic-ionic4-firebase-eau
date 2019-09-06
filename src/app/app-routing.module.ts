@@ -19,7 +19,7 @@ const routes: Routes = [
     loadChildren: './pages/login/login.module#LoginPageModule'
   },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
-  { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
+  { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' }
 ];
 
 @NgModule({
